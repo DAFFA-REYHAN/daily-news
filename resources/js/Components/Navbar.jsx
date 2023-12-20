@@ -2,7 +2,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100" data-theme="light">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">DailyNews</a>
             </div>
             <div className="flex-none gap-2">
                 <div className="form-control">
@@ -31,7 +31,7 @@ const Navbar = () => {
                     >
                         <li>
                             <a className="justify-between">
-                                Profile
+                                Dashboard
                                 <span className="badge">New</span>
                             </a>
                         </li>
