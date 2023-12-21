@@ -137,7 +137,16 @@ export default function Dashboard(props) {
                                                     </Link>
                                                 </div>
                                                 <div className="badge badge-neutral">
-                                                    delete
+                                                    <Link
+                                                        href={route(
+                                                            "delete.news"
+                                                        )}
+                                                        method="post"
+                                                        data={{ id: news.id }}
+                                                        as="button"
+                                                    >
+                                                        delete
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>

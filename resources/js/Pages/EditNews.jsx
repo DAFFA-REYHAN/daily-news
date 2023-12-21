@@ -3,26 +3,24 @@ import { Head, router } from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
 
 export default function Homepage(props) {
-    const [title, setTitle] = useState([]);
-    const [description, setDescription] = useState([]);
-    const [category, setCategory] = useState([]);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
 
     const handleSubmit = () => {
-        title.value == null ? props.myNews.id : title;
-        console.log(title.value)
         const data = {
             id: props.myNews.id,
-            title,
-            description,
-            category,
+            title: title || props.myNews.title,
+            description: description || props.myNews.description,
+            category: category || props.myNews.category,
         };
         router.post("/news/update", data);
 
+        // Reset form hanya jika diperlukan
         setTitle("");
         setDescription("");
         setCategory("");
     };
-    
     return (
         <div className="min-h-screen bg-slate-50">
             <Head title={props.title} />
