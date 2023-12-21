@@ -14,7 +14,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = new NewsCollection(News::paginate(10));
+        $news = new NewsCollection(News::orderByDesc('id')->paginate(10));
         return Inertia::render('Homepage', [
             'title'=>'Homepage',
             'description'=>'Selamat datang di DailyNews Portal Berita.',
@@ -35,7 +35,14 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $news = new News();
+        $news->title = $request->title;
+        $news->description = $request->description;
+        $news->category = $request->category;
+        $news->author = auth()->user()->email;
+        $news->save();
+        return redirect()->back()->with('message', 'News created successfully.');
+    
     }
 
     /**
@@ -43,15 +50,21 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        $myNews= $news::where('author', auth()->user()->email)->get();
+        return Inertia::render('Dashboard', [
+        'myNews'=>$myNews,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(News $news)
+    public function edit(News $news, Request $request)
     {
-        //
+          return Inertia::render('EditNews', [
+          'myNews' => $news->find($request->id)
+          ]);
+        
     }
 
     /**
@@ -59,7 +72,12 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+          News::where('id', $request->id)->update([
+          'title' => $request->title,
+          'description' => $request->description,
+          'category' => $request->category,
+          ]);
+          return to_route('dashboard')->with('message', 'News updated successfully.');
     }
 
     /**
